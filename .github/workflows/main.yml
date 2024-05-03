@@ -1,0 +1,12 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is deploying the project to catalyst
+on: [push]
+env:
+  CATALYST_TOKEN: testing
+jobs:
+  CatalystDeployment:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test"
+      - run: env
+      - run: echo "Catalyst token is $CATALYST_TOKEN"
