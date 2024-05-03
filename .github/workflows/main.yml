@@ -8,4 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Test"
+      - run: env
       - run: echo "Catalyst token is $CATALYST_TOKEN"
