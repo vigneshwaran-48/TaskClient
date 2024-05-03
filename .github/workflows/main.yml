@@ -1,12 +1,22 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is deploying the project to catalyst
 on: [push]
-env:
-  CATALYST_TOKEN: testing
+
 jobs:
   CatalystDeployment:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Test"
-      - run: env
-      - run: echo "Catalyst token is $CATALYST_TOKEN"
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - run: npm install -g zcatalyst-cli
+      - run: echo "Installed Zoho Catalyst"
+      - run: mvn clean package
+      - run: catalyst deploy appsail --name task-client --build-path "target" --stack "java17" --platform javase --command "java -jar -Dspring.profiles.active=prod TaskClient-1.0-SNAPSHOT.jar" --token m_1004.37e625385ea9d46d246386ac69f1a0f9.1d95beef00ef88f7f55e76fba9d06683
+      - run: echo "Deployed to catalyst"
+        
